@@ -1,0 +1,49 @@
+{
+  "name": "motimize",
+  "version": "0.0.0",
+  "description": "Motimize is open sourced image optimizer web service.",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.0.0-beta.40",
+    "@babel/core": "^7.0.0-beta.40",
+    "@babel/node": "^7.0.0-beta.40",
+    "@babel/preset-env": "^7.0.0-beta.40",
+    "@meanie/mongoose-to-json": "^2.2.0",
+    "bull": "^3.3.10",
+    "dotenv": "^5.0.1",
+    "download": "^6.2.5",
+    "express": "^4.16.2",
+    "file-type": "^7.6.0",
+    "imagemin": "^5.3.1",
+    "imagemin-jpegoptim": "^5.2.0",
+    "imagemin-mozjpeg": "^7.0.0",
+    "imagemin-pngquant": "^5.0.1",
+    "joi": "^13.1.2",
+    "mime-types": "^2.1.18",
+    "mongoose": "^5.0.9",
+    "nconf": "^0.10.0",
+    "nodemon": "^1.17.1",
+    "read-chunk": "^2.1.0",
+    "request": "^2.85.0",
+    "request-promise": "^4.2.2",
+    "tempfile": "^2.0.0",
+    "winston": "^2.4.0"
+  },
+  "babel": {
+    "presets": [
+    ["@babel/preset-env", {
+      "targets": {
+        "node": "6.10"
+      }
+    }]
+  ]
+  },
+  "scripts": {
+    "build": "NODE_ENV=development babel lib -d dist --copy-files",
+    "start:dev:web": "NODE_ENV=development nodemon --exec babel-node lib/index.js",
+    "start:dev:worker": "NODE_ENV=development nodemon --exec babel-node lib/index.js --type=worker",
+    "start:web": "NODE_ENV=production node dist/index.js",
+    "start:worker": "NODE_ENV=production node dist/index.js --type=worker"
+  }
+}
