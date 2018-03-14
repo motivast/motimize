@@ -1,0 +1,26 @@
+{
+    "type": "web",
+    "port": "8080",
+    "public": "public",
+    "mongodb": {
+        "env": "MONGODB_URI",
+        "host": "localhost",
+        "port": "27017",
+        "name": "motimize"
+    },
+    "redis": {
+        "env": "REDIS_URL",
+        "host": "localhost",
+        "port": "6379"
+    },
+    "queue": {
+        "key": "optimization"
+    },
+    "callback": {
+        "params": {
+            "timeout": "30000",
+            "followRedirect": "true",
+            "maxRedirects": "3"
+        }
+    }
+}
