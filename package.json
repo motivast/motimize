@@ -10,6 +10,7 @@
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
+    "boom": "^7.2.0",
     "bull": "^3.3.10",
     "dotenv": "^5.0.1",
     "download": "^6.2.5",
@@ -79,14 +80,17 @@
       "jsdoc/require-param-type": "error",
       "jsdoc/require-returns-description": "error",
       "jsdoc/require-returns-type": "error",
-      "require-jsdoc": ["error", {
-        "require": {
-          "FunctionDeclaration": true,
-          "MethodDefinition": true,
-          "ClassDeclaration": true,
-          "ArrowFunctionExpression": true
+      "require-jsdoc": [
+        "error",
+        {
+          "require": {
+            "FunctionDeclaration": true,
+            "MethodDefinition": true,
+            "ClassDeclaration": true,
+            "ArrowFunctionExpression": true
+          }
         }
-      }],
+      ],
       "valid-jsdoc": "error"
     }
   },
