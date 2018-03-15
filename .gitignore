@@ -14,5 +14,5 @@ node_modules/
 # Release directory
 dist
 
-# Public upload directory
-public
+# Upload directory
+uploads
