@@ -1,0 +1,21 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+node_modules/
+
+# Build tasks
+tasks
+
+# dotenv environment variables file
+.env
+
+# Source directory
+lib
+
+# Public upload directory
+public
