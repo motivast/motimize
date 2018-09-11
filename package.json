@@ -2,65 +2,77 @@
   "name": "motimize",
   "version": "0.0.0",
   "description": "Motimize is open sourced image optimizer web service.",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "license": "MIT",
   "dependencies": {
-    "@meanie/mongoose-to-json": "^2.2.0",
     "boom": "^7.2.0",
-    "bull": "^3.3.10",
-    "dotenv": "^5.0.1",
-    "download": "^6.2.5",
-    "express": "^4.16.2",
-    "file-type": "^7.6.0",
+    "bull": "^3.4.8",
+    "dotenv": "^6.0.0",
+    "download": "^7.1.0",
+    "express": "^4.16.3",
+    "file-type": "^9.0.0",
     "gridfs-stream": "^1.1.1",
-    "imagemin": "^5.3.1",
+    "imagemin": "^6.0.0",
     "imagemin-jpegoptim": "^5.2.0",
     "imagemin-mozjpeg": "^7.0.0",
-    "imagemin-pngquant": "^5.0.1",
-    "joi": "^13.1.2",
-    "mime-types": "^2.1.18",
-    "mongoose": "^5.0.9",
+    "imagemin-pngquant": "^6.0.0",
+    "joi": "^13.6.0",
+    "mime-types": "^2.1.20",
+    "mysql2": "^1.6.1",
     "nconf": "^0.10.0",
     "node-uuid": "^1.4.8",
-    "read-chunk": "^2.1.0",
-    "request": "^2.85.0",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
+    "read-chunk": "^3.0.0",
+    "request": "^2.88.0",
     "request-promise": "^4.2.2",
+    "sequelize": "^4.38.0",
+    "sequelize-cli": "^4.1.1",
+    "sqlite3": "^4.0.2",
     "tempfile": "^2.0.0",
-    "winston": "^2.4.0"
+    "winston": "^2.4.4"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-register": "^6.26.0",
-    "eslint": "^4.18.2",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-jsdoc": "^3.5.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-prettier": "^2.6.0",
-    "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "babel-plugin-dynamic-import-node": "^2.1.0",
+    "eslint": "^5.5.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsdoc": "^3.8.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-promise": "^4.0.0",
+    "eslint-plugin-standard": "^4.0.0",
     "gulp": "4.0.0",
-    "gulp-eslint": "^4.0.2",
+    "gulp-eslint": "^5.0.0",
     "gulp-notify": "^3.2.0",
-    "nodemon": "^1.17.1",
-    "prettier": "^1.11.1"
+    "nodemon": "^1.18.4",
+    "prettier": "^1.14.2"
   },
   "bin": {
-    "motimize": "./dist/index.js"
+    "motimize": "./lib/index.js"
   },
   "babel": {
     "presets": [
       [
-        "env",
+        "@babel/preset-env",
         {
           "targets": {
-            "node": "6.10"
+            "node": "8"
           }
         }
       ]
+    ],
+    "plugins": [
+      "@babel/plugin-syntax-dynamic-import",
+      "dynamic-import-node"
     ]
   },
   "eslintConfig": {
@@ -102,10 +114,12 @@
     }
   },
   "scripts": {
-    "build": "NODE_ENV=development babel lib -d dist --copy-files",
-    "start:dev:web": "NODE_ENV=development nodemon --exec babel-node lib/index.js",
-    "start:dev:worker": "NODE_ENV=development nodemon --exec babel-node lib/index.js --type=worker",
-    "start:web": "NODE_ENV=production node dist/index.js",
-    "start:worker": "NODE_ENV=production node dist/index.js --type=worker"
+    "watch": "NODE_ENV=development gulp watch --require @babel/register --gulpfile tasks",
+    "build": "NODE_ENV=development npx babel src -d lib --copy-files",
+    "start:dev:web": "NODE_ENV=development nodemon --exec babel-node src/index.js",
+    "start:dev:worker": "NODE_ENV=development nodemon --exec babel-node src/index.js --type=worker",
+    "start:web": "NODE_ENV=production node lib/index.js",
+    "start:worker": "NODE_ENV=production node lib/index.js --type=worker",
+    "db:migrate": "NODE_ENV=production npx sequelize db:migrate --config lib/config/sequalize-cli.js --migrations-path lib/migrations"
   }
 }

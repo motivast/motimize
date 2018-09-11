@@ -12,7 +12,7 @@ node_modules/
 .env
 
 # Release directory
-dist
+lib
 
 # Upload directory
 uploads

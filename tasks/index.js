@@ -1,6 +1,7 @@
 import gulp from 'gulp'
 
-import javascript from './javascript';
+import './sequelize';
+import './javascript';
 
 gulp.task('watch', gulp.parallel( [
     'watch:javascript',

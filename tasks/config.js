@@ -12,8 +12,8 @@
  *
  * Path relative to path where gulp is executed. Probably root directory
  */
-let src = './lib';
-let dist = './dist';
+let src = './src';
+let lib = './lib';
 
 let gulpPath = './tasks';
 
@@ -31,7 +31,7 @@ let watchOptions = {
 
 let config = {
     src,
-    dist,
+    lib,
 
     gulpPath,
 
