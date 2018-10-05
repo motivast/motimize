@@ -15,11 +15,6 @@ function error(fn) {
   return function(req, res, next) {
 
     Promise.resolve(fn(req, res, next)).catch(err => {
-
-      if (!err.isBoom) {
-        return next(boom.badImplementation(err));
-      }
-
       return next(err);
     });
   };
