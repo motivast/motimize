@@ -81,7 +81,7 @@ class ImageService {
     buffer = await StorageService.read(image.image);
 
     logger.info("Image optimization: Start image optimization.");
-    buffer = await OptimizeService.optimize(buffer, image.quality);
+    buffer = await OptimizeService.optimize(buffer, image.mime_type, image.quality);
 
     logger.info("Image optimization: Save optimized image.");
     file = await StorageService.write(buffer);

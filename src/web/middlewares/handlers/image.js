@@ -6,6 +6,13 @@ import url from "url";
 import tempfile from "tempfile";
 import download from "download";
 
+import readChunk from "read-chunk";
+import fileType from "file-type";
+
+import boom from "boom";
+
+import config from "./../../../config";
+
 /**
  * Image handler middleware.
  *
@@ -73,19 +80,19 @@ function handler(...names) {
  *
  * @returns {string} File path.
  */
-function handleUrl(fileUrl) {
+async function handleUrl(fileUrl) {
   let tmp = tempfile();
 
   let parsed = url.parse(fileUrl);
   let filename = path.basename(parsed.pathname);
 
-  return new Promise(async (resolve, reject) => {
-    let downloaded = await download(fileUrl);
+  let downloaded = await download(fileUrl);
 
-    fs.writeFileSync(tmp, downloaded);
+  fs.writeFileSync(tmp, downloaded);
 
-    return resolve({ filename: filename, path: tmp });
-  });
+  checkMimeType(tmp);
+
+  return { filename: filename, path: tmp };
 }
 
 /**
@@ -98,11 +105,34 @@ function handleUrl(fileUrl) {
 function handleBase64(fileBase64) {
   let tmp = tempfile();
 
-  return new Promise((resolve, reject) => {
-    fs.writeFileSync(tmp, fileBase64, "base64");
+  fs.writeFileSync(tmp, fileBase64, "base64");
 
-    return resolve({ filename: "", path: tmp });
-  });
+  checkMimeType(tmp);
+
+  return { filename: "", path: tmp };
+}
+
+/**
+ * Check if we support given file mime type
+ *
+ * @param {string} path File path.
+ *
+ * @returns void
+ */
+function checkMimeType(path) {
+
+  let supportedMimTypes = config.get("mime_types");
+
+  let buffer = readChunk.sync(path, 0, 4100);
+  let type = fileType(buffer);
+
+  if (!supportedMimTypes.includes(type.mime)) {
+    throw boom.badRequest(
+      `Uploaded image has unsupported mime type "${type.mime}". Supported mime types are "${supportedMimTypes.join('","')}".`
+    );
+  }
+
+  return;
 }
 
 export default handler;

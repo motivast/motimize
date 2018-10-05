@@ -31,5 +31,9 @@
         }
     },
     "uploads_dir": "uploads",
-    "body_parser_limit": "25 MB"
+    "body_parser_limit": "25 MB",
+    "mime_types": [
+        "image/jpeg",
+        "image/png"
+    ]
 }
