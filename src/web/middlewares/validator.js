@@ -10,9 +10,7 @@ import boom from "boom";
  * @returns {Function} Express middleware function.
  */
 function validate(params = {}, query = {}) {
-
   return function(req, res, next) {
-
     const validationParams = Joi.validate(req.body, params);
     const validationQuery = Joi.validate(req.query, query);
 

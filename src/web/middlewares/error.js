@@ -1,5 +1,3 @@
-import boom from "boom";
-
 /**
  * Error middleware.
  *
@@ -11,9 +9,7 @@ import boom from "boom";
  * @returns {Function} Express middleware function.
  */
 function error(fn) {
-
   return function(req, res, next) {
-
     Promise.resolve(fn(req, res, next)).catch(err => {
       return next(err);
     });

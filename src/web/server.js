@@ -46,9 +46,7 @@ function web() {
  * @returns {void} Returns nothing.
  */
 function errors(err, req, res, next) {
-
   if (err.isBoom) {
-
     /* Log error internaly */
     logger.warn(err.output.payload.message);
 
@@ -56,20 +54,12 @@ function errors(err, req, res, next) {
     res
       .status(err.output.statusCode || 500)
       .json({ success: false, error: err.output.payload.message });
-
-    return;
-
   } else {
-
     /* Log error internaly */
     logger.error(err);
 
     /* Respond to the request */
-    res
-      .status(500)
-      .json({ success: false, error: err.message });
-
-    return;
+    res.status(500).json({ success: false, error: err.message });
   }
 }
 

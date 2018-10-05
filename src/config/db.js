@@ -30,20 +30,22 @@ if (typeof dbUrl !== "undefined") {
   connectionConfig.host = parsedDbUrl.hostname;
   connectionConfig.port = parsedDbUrl.port;
 
-  connectionConfig.database = parsedDbUrl.pathname.slice(1, parsedDbUrl.pathname.length);
+  connectionConfig.database = parsedDbUrl.pathname.slice(
+    1,
+    parsedDbUrl.pathname.length
+  );
 
-  if (typeof parsedDbUrl.auth !== 'undefined') {
-    auth = parsedDbUrl.auth.split(':');
+  if (typeof parsedDbUrl.auth !== "undefined") {
+    auth = parsedDbUrl.auth.split(":");
 
-    if (typeof auth[0] !== 'undefined') {``
+    if (typeof auth[0] !== "undefined") {
       connectionConfig.username = auth[0];
     }
 
-    if (typeof auth[1] !== 'undefined') {
+    if (typeof auth[1] !== "undefined") {
       connectionConfig.password = auth[1];
     }
   }
-
 } else {
   connectionConfig.dialect = config.get("db:dialect");
 

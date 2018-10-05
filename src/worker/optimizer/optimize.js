@@ -49,7 +49,7 @@ async function process(job, done) {
     buffer = fs.readFileSync(image);
 
     logger.info("Optimize job: Optimize image.");
-    buffer = await OptimizeService.optimize(buffer);
+    buffer = await OptimizeService.optimize(buffer, job.data.image.quality);
 
     logger.info("Optimize job: Send patch request.");
     response = await sendPatch(job.data.image, buffer);

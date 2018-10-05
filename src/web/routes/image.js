@@ -22,9 +22,9 @@ import {
  * @returns {void} Returns nothing.
  */
 function image(app) {
-
   // UUIDv4 regex to match routes with image id
-  let uuidv4Regex = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}";
+  let uuidv4Regex =
+    "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}";
 
   // Get image route
   app.route("/image/:id(" + uuidv4Regex + ")").get(error(imageAction));

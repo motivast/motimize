@@ -50,7 +50,6 @@ async function patch(req, res) {
    * image schema and update image model.
    */
   for (key in req.body) {
-
     if (req.body.hasOwnProperty(key) && schema.hasOwnProperty(key)) {
       image[key] = req.body[key];
 

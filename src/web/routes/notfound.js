@@ -16,7 +16,9 @@ function notfound(app) {
   app.route("*").all(
     error(function(req, res) {
       throw boom.badRequest(
-        `Requested URL "${req.originalUrl}" in combination with method "${req.method}" is invalid.`
+        `Requested URL "${req.originalUrl}" in combination with method "${
+          req.method
+        }" is invalid.`
       );
     })
   );

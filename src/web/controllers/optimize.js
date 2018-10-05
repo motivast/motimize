@@ -57,6 +57,7 @@ async function optimizeSync(tmp, params) {
     filename: tmp.filename,
     size: file.size,
     mime_type: file.mime_type,
+    quality: params.quality
   });
 
   logger.info("Optimize sync request: Optimize image.");
@@ -86,6 +87,7 @@ async function optimizeAsync(tmp, params) {
     filename: tmp.filename,
     size: file.size,
     mime_type: file.mime_type,
+    quality: params.quality,
     callback_url: params.callback_url
   });
 

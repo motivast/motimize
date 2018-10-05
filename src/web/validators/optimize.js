@@ -40,17 +40,18 @@ export const optimize = {
   // Default false
   wait: Joi.boolean().default(false),
 
-  // Default true
-  lossy: Joi.boolean().default(true),
-
-  // Allow for integer between 0 - 100 or 'default' string
+  // Allow for 'perfect', 'ultra', high', 'medium', 'low' strings and for integer between 0 - 100
   quality: Joi.alternatives()
     .try(
+      Joi.string().regex(/^perfect$/),
+      Joi.string().regex(/^ultra$/),
+      Joi.string().regex(/^high$/),
+      Joi.string().regex(/^medium$/),
+      Joi.string().regex(/^low$/),
       Joi.number()
         .integer()
         .min(0)
-        .max(100),
-      Joi.string().regex(/^default$/)
+        .max(100)
     )
-    .default("default")
+    .default("medium")
 };
